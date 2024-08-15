@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dad Joke with Async and Await</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to Dad Jokes!!!</h1>
+        <section class="api-body"></section>
+        <button class="fetchJoke">Get Another Joke</button>
+    </div>
+
+
+    <script>
+        const jokeContainer = document.querySelector('.api-body');
+        const fetchJokeButton = document.querySelector('.fetchJoke');
+        const jokeUrl = 'https://icanhazdadjoke.com/';
+        const jokeHeaders = new Headers({
+            'Accept': 'application/json',
+            'User-Agent': 'Dad Joke App'
+            });
+            const jokeInit = {
+                method: 'GET',
+                headers: jokeHeaders
+                };
+                const jokeResponse = async () => {
+                    try {
+                        const jokeData = await fetch(jokeUrl, jokeInit);
+                        const jokeJson = await jokeData.json();
+                        jokeContainer.innerHTML = jokeJson.joke;
+                        } catch (error) {
+                            console.error('Error fetching joke:', error);
+                            }
+                            }
+                            fetchJokeButton.addEventListener('click', jokeResponse);
+                            
+    </script>
+</body>
+</html>
